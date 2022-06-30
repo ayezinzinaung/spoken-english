@@ -1,0 +1,10 @@
+{
+    "name": "lenovo/se",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Libs\\": "classes/Libs/",
+            "Helpers\\": "classes/Helpers/"
+        }
+    }
+}
