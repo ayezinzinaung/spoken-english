@@ -1,23 +1,42 @@
 <?php
 
-session_start();
+namespace Illuminate\Auth\Events;
 
-include "../vendor/autoload.php";
+class Login
+{
+    /**
+     * The authentication guard name.
+     *
+     * @var string
+     */
+    public $guard;
 
-use Libs\Database\MySQL;
-use Libs\Database\UserTable;
-use Helpers\HTTP;
+    /**
+     * The authenticated user.
+     *
+     * @var \Illuminate\Contracts\Auth\Authenticatable
+     */
+    public $user;
 
-$email = $_POST['email'];
-$password = md5($_POST['password']);
+    /**
+     * Indicates if the user should be "remembered".
+     *
+     * @var bool
+     */
+    public $remember;
 
-$table = new UserTable(new MySQL());
-
-$user = $table->findByEmailAndPassword($email, $password);
-
-if($user) {
-    $_SESSION['user'] = $user;
-    HTTP::redirect("/home.php");
-} else {
-    HTTP::redirect("/index.php", "incorrect");
+    /**
+     * Create a new event instance.
+     *
+     * @param  string  $guard
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  bool  $remember
+     * @return void
+     */
+    public function __construct($guard, $user, $remember)
+    {
+        $this->user = $user;
+        $this->guard = $guard;
+        $this->remember = $remember;
+    }
 }
