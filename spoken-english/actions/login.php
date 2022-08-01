@@ -17,7 +17,7 @@ $user = $table->findByEmailAndPassword($email, $password);
 
 if($user) {
     $_SESSION['user'] = $user;
-    HTTP::redirect("/home.php");
+    HTTP::redirect("/home");
 } else {
-    HTTP::redirect("/index.php", "incorrect");
+    HTTP::redirect("/index", "incorrect");
 }
